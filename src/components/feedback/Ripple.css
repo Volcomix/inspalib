@@ -1,6 +1,6 @@
 .Ripple {
   background-color: black;
-  opacity: 0.4;
+  opacity: 0.2;
   position: absolute;
   border-radius: 50%;
   animation: Ripple-entering 350ms forwards ease-in-out;
