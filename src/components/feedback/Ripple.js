@@ -1,17 +1,20 @@
 import React from 'react'
+import classNames from 'classnames'
 
 import './Ripple.css'
 
 class Ripple extends React.Component {
   state = {
     isVisible: false,
+    isEntering: false,
+    isExiting: false,
     diameter: 0,
     x: 0,
     y: 0,
   }
 
   render() {
-    const { isVisible, x, y, diameter } = this.state
+    const { isVisible, isEntering, isExiting, x, y, diameter } = this.state
     return (
       <div
         style={{
@@ -22,32 +25,59 @@ class Ripple extends React.Component {
           overflow: 'hidden',
         }}
         ref={container => (this.container = container)}
-        onClick={this.show}
+        onMouseDown={this.setVisible}
       >
         {isVisible && (
           <div
-            className="Ripple"
+            className={classNames('Ripple', {
+              'Ripple-exiting': !isEntering && isExiting,
+            })}
             style={{ left: x, top: y, width: diameter, height: diameter }}
+            onAnimationEnd={this.setEntered}
+            onTransitionEnd={this.setExited}
           />
         )}
       </div>
     )
   }
 
-  show = event => {
-    const { left, top, width, height } = this.container.getBoundingClientRect()
-    const { clientX, clientY } = event
-    const x = clientX - left
-    const y = clientY - top
-    const diskWidth = x < width / 2 ? width - x : x
-    const diskHeight = y < height / 2 ? height - y : y
-    const diameter = 2 * Math.hypot(diskWidth, diskHeight)
-    this.setState({ isVisible: true, x, y, diameter })
-    setTimeout(this.hide, 750)
+  setVisible = event => {
+    event.preventDefault()
+    const ripple = this.computeRipple(event)
+    if (this.state.isVisible) {
+      this.setState({ isVisible: false, isEntering: false, isExiting: false })
+      setTimeout(() => this.setEntering(ripple))
+    } else {
+      this.setEntering(ripple)
+    }
   }
 
-  hide = () => {
-    this.setState({ isVisible: false })
+  computeRipple = ({ clientX, clientY }) => {
+    const { left, top, width, height } = this.container.getBoundingClientRect()
+    const x = clientX - left
+    const y = clientY - top
+    const rippleWidth = x < width / 2 ? width - x : x
+    const rippleHeight = y < height / 2 ? height - y : y
+    const diameter = 2 * Math.hypot(rippleWidth, rippleHeight)
+    return { x, y, diameter }
+  }
+
+  setEntering = ({ x, y, diameter }) => {
+    this.setState({ isVisible: true, isEntering: true, x, y, diameter })
+    document.addEventListener('mouseup', this.setExiting)
+  }
+
+  setEntered = () => {
+    this.setState({ isEntering: false })
+  }
+
+  setExiting = () => {
+    this.setState({ isExiting: true })
+    document.removeEventListener('mouseup', this.setExiting)
+  }
+
+  setExited = () => {
+    this.setState({ isVisible: false, isExiting: false })
   }
 }
 

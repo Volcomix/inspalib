@@ -2,19 +2,19 @@
   background-color: rgba(255, 0, 0, 0.5);
   position: absolute;
   border-radius: 50%;
-  animation: Ripple-show 750ms forwards ease-in-out;
+  animation: Ripple-entering 350ms forwards ease-in-out;
+  transition: opacity 350ms ease-out;
 }
 
-@keyframes Ripple-show {
-  0% {
+@keyframes Ripple-entering {
+  from {
     transform: translate(-50%, -50%) scale(0);
   }
-  50% {
+  to {
     transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
   }
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0;
-  }
+}
+
+.Ripple-exiting {
+  opacity: 0;
 }
