@@ -17,16 +17,12 @@ class Ripple extends React.Component {
     const { isVisible, isEntering, isExiting, x, y, diameter } = this.state
     return (
       <div
-        style={{
-          width: 400,
-          height: 200,
-          boxShadow: '0 3px 5px rgba(0, 0, 0, 0.3)',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
+        className={classNames('Ripple-container', this.props.className)}
+        style={this.props.style}
         ref={container => (this.container = container)}
         onMouseDown={this.setVisible}
       >
+        {this.props.children}
         {isVisible && (
           <div
             className={classNames('Ripple', {

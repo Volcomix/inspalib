@@ -1,6 +1,12 @@
+.Ripple-container {
+  position: relative;
+  overflow: hidden;
+}
+
 .Ripple {
   background-color: black;
   opacity: 0.2;
+  pointer-events: none;
   position: absolute;
   border-radius: 50%;
   animation: Ripple-entering 350ms forwards ease-in-out;
@@ -17,5 +23,5 @@
 }
 
 .Ripple-exiting {
-  opacity: 0;
+  opacity: 0 !important;
 }
