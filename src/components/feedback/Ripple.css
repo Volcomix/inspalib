@@ -1,12 +1,10 @@
 .Ripple {
+  background-color: black;
+  opacity: 0.4;
   position: absolute;
   border-radius: 50%;
-  animation: Ripple-entering forwards ease-in-out;
-  transition: opacity ease-out;
-
-  background-color: rgba(255, 0, 0, 0.5);
-  animation-duration: 350ms;
-  transition-duration: 350ms;
+  animation: Ripple-entering 350ms forwards ease-in-out;
+  transition: opacity 350ms ease-out;
 }
 
 @keyframes Ripple-entering {
