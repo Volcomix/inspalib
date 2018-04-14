@@ -32,7 +32,13 @@ class Ripple extends React.Component {
             className={classNames('Ripple', {
               'Ripple-exiting': !isEntering && isExiting,
             })}
-            style={{ left: x, top: y, width: diameter, height: diameter }}
+            style={{
+              ...this.props.style,
+              left: x,
+              top: y,
+              width: diameter,
+              height: diameter,
+            }}
             onAnimationEnd={this.setEntered}
             onTransitionEnd={this.setExited}
           />
