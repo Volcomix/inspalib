@@ -42,7 +42,6 @@ class Ripple extends React.Component {
   }
 
   setVisible = event => {
-    event.preventDefault()
     const ripple = this.computeRipple(event)
     if (this.state.isVisible) {
       this.setState({ isVisible: false, isEntering: false, isExiting: false })
