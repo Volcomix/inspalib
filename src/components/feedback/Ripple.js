@@ -3,6 +3,9 @@ import classNames from 'classnames'
 
 import './Ripple.css'
 
+/**
+ * A ripple provide elements with a material “ink ripple” interaction effect.
+ */
 class Ripple extends React.Component {
   state = {
     isVisible: false,
