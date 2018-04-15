@@ -21,7 +21,6 @@ class Ripple extends React.Component {
     return (
       <div
         className={classNames('Ripple-container', this.props.className)}
-        style={this.props.style}
         ref={container => (this.container = container)}
         onMouseDown={this.setVisible}
       >
